@@ -10,9 +10,9 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool _lastElementIsDigit;
-        bool _lastOperationIsDecimalPoint;
-        readonly List<char> _listOfOperations;
+        bool _lastElementIsDigit; //private явно укажи
+        bool _lastOperationIsDecimalPoint; //private
+        readonly List<char> _listOfOperations; //private
 
         public MainWindow()
         {
@@ -25,7 +25,7 @@ namespace Calculator
         {
             var stringToCalculate = textDisplay.Content.ToString();
 
-            if (textDisplay.Content.ToString().Length < 3)
+            if (textDisplay.Content.ToString().Length < 3) //магическое число(magic number) почему именно меньше 3(можно вынести константой в отдельную перменную) 
             {
                 if (!(StringToCalculateIsZero(stringToCalculate) || StringToCalculateIsMinusZero(stringToCalculate)))
                 {
@@ -146,7 +146,7 @@ namespace Calculator
             {
                 stringToCalculate = stringToCalculate.Replace('÷', '/').Replace(',', '.');
 
-                object result = new DataTable().Compute(stringToCalculate, null);
+                object result = new DataTable().Compute(stringToCalculate, null); //var
 
                 if (result.ToString().Contains("."))
                 {
@@ -161,7 +161,7 @@ namespace Calculator
         {
             var stringToCalculate = textDisplay.Content.ToString();
 
-            if (stringToCalculate.Length < 3)
+            if (stringToCalculate.Length < 3)//магическое число(magic number) почему именно меньше 3(можно вынести константой в отдельную перменную)
             {
                 if (StringToCalculateIsZero(stringToCalculate))
                 {
@@ -221,10 +221,10 @@ namespace Calculator
 
         public bool IsZeroAfterOperation(string stringToCalculate)
         {
-            if (stringToCalculate.Length > 2)
+            if (stringToCalculate.Length > 2)//тоже магия, программист не должен думать, а почему тут именно 2, а дожен сразу понимать(например из названия константы)
             {
-                var lastDigit = stringToCalculate[stringToCalculate.Length - 1];
-                var preLastDigit = stringToCalculate[stringToCalculate.Length - 2];
+                var lastDigit = stringToCalculate[stringToCalculate.Length - 1]; //[^1]
+                var preLastDigit = stringToCalculate[stringToCalculate.Length - 2]; //[^2]
 
                 if (_listOfOperations.Contains(preLastDigit) && lastDigit is '0')
                 {
@@ -237,7 +237,7 @@ namespace Calculator
 
         private void ReplaceLastZero(string stringToCalculate, string digit)
         {
-            stringToCalculate = stringToCalculate.Remove(stringToCalculate.Length - 1);
+            stringToCalculate = stringToCalculate.Remove(stringToCalculate.Length - 1); //можно сделать одной строкой remove + insert, а длину строки в отдельную переменную вынеси
 
             textDisplay.Content = stringToCalculate.Insert(stringToCalculate.Length, digit);
         }
@@ -250,14 +250,14 @@ namespace Calculator
 
                 return false;
             }
-            else if (!char.IsDigit(stringToCalculate[stringToCalculate.Length - 1]))
+            else if (!char.IsDigit(stringToCalculate[stringToCalculate.Length - 1])) //[^1]
             {
                 MessageBox.Show("The calculation string was entered incorrectly (perhaps the last character is not a number)!");
 
                 return false;
             }
 
-            bool correctString = false;
+            bool correctString = false; //перемести где используешь, стоит перед ифом хотя его скипаешь
 
             if (stringToCalculate[0] is '-')
             {
