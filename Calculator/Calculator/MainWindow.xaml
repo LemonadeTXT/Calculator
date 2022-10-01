@@ -1,0 +1,31 @@
+﻿<Window x:Class="Calculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calculator"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Calculator" Height="500" Width="500">
+    <Grid>
+        <Button Name="buttonZero" Content="0" HorizontalAlignment="Left" Height="70" Margin="30,350,0,0" VerticalAlignment="Top" Width="70" Click="ButtonZero_Click" FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonOne" Content="1" HorizontalAlignment="Left" Height="70" Margin="30,110,0,0" VerticalAlignment="Top" Width="70" Click="ButtonOne_Click" FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonTwo" Content="2" HorizontalAlignment="Left" Height="70" Margin="115,110,0,0" VerticalAlignment="Top" Width="70" Click="ButtonTwo_Click" FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonThree" Content="3" HorizontalAlignment="Left" Height="70" Margin="200,110,0,0" VerticalAlignment="Top" Width="70" Click="ButtonThree_Click" FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonFour" Content="4" HorizontalAlignment="Left" Height="70" Margin="30,190,0,0" VerticalAlignment="Top" Width="70" Click="ButtonFour_Click" FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonFive" Content="5" HorizontalAlignment="Left" Height="70" Margin="113,190,0,0" VerticalAlignment="Top" Width="70" Click="ButtonFive_Click" FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonSix" Content="6" HorizontalAlignment="Left" Height="70" Margin="200,190,0,0" VerticalAlignment="Top" Width="70" Click="ButtonSix_Click" FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonSeven" Content="7" HorizontalAlignment="Left" Height="70" Margin="30,270,0,0" VerticalAlignment="Top" Width="70" Click="ButtonSeven_Click" FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonEight" Content="8" HorizontalAlignment="Left" Height="70" Margin="113,270,0,0" VerticalAlignment="Top" Width="70" Click="ButtonEight_Click" FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonNine" Content="9" HorizontalAlignment="Left" Height="70" Margin="200,270,0,0" VerticalAlignment="Top" Width="70" Click="ButtonNine_Click"  FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonDecimalPoint" Content="," HorizontalAlignment="Left" Height="70" Margin="113,350,0,0" VerticalAlignment="Top" Width="70" Click="ButtonDecimalPoint_Click" FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonAdd" Content="+" HorizontalAlignment="Left" Height="70" Margin="305,110,0,0" VerticalAlignment="Top" Width="70" Click="ButtonAdd_Click" FontSize="24" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonSubtract" Content="-" HorizontalAlignment="Left" Height="70" Margin="305,190,0,0" VerticalAlignment="Top" Width="70" Click="ButtonSubtract_Click" FontSize="24" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonMultiply" Content="*" HorizontalAlignment="Left" Height="70" Margin="305,270,0,0" VerticalAlignment="Top" Width="70" Click="ButtonMultiply_Click" FontSize="24" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonDivide" Content="÷" HorizontalAlignment="Left" Height="70" Margin="305,350,0,0" VerticalAlignment="Top" Width="70" Click="ButtonDivide_Click" FontSize="24" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonClean" Content="C" HorizontalAlignment="Left" Height="70" Margin="200,350,0,0" VerticalAlignment="Top" Width="70" Click="ButtonClean_Click" FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Button Name="buttonResult" Content="=" HorizontalAlignment="Left" Height="310" Margin="390,110,0,0" VerticalAlignment="Top" Width="60" Click="ButtonResult_Click" FontSize="24" Foreground="Black" Background="White" BorderBrush="Black"/>
+        <Label Name="textDisplay" Content="" BorderThickness="1" BorderBrush="Black"  HorizontalAlignment="Left" Height="60" Margin="30,35,0,0" VerticalAlignment="Top" Width="420" FontSize="30"/>
+
+    </Grid>
+</Window>
