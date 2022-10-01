@@ -2,6 +2,7 @@
 using System.Data;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media.Media3D;
 
 namespace Calculator
 {
@@ -12,7 +13,10 @@ namespace Calculator
     {
         private bool _lastElementIsDigit;
         private bool _lastOperationIsDecimalPoint;
+
         private readonly List<char> _listOfOperations;
+
+        private const int MaxStringLengthIfZeroOrMinusZero = 3;
 
         public MainWindow()
         {
@@ -25,7 +29,7 @@ namespace Calculator
         {
             var stringToCalculate = textDisplay.Content.ToString();
 
-            if (textDisplay.Content.ToString().Length < 3) //магическое число(magic number) почему именно меньше 3(можно вынести константой в отдельную перменную) 
+            if (stringToCalculate.Length < MaxStringLengthIfZeroOrMinusZero)
             {
                 if (!(StringToCalculateIsZero(stringToCalculate) || StringToCalculateIsMinusZero(stringToCalculate)))
                 {
@@ -94,7 +98,7 @@ namespace Calculator
         {
             if (_lastElementIsDigit && !_lastOperationIsDecimalPoint)
             {
-                textDisplay.Content += ",";
+                textDisplay.Content += ".";
 
                 _lastElementIsDigit = false;
                 _lastOperationIsDecimalPoint = true;
@@ -136,6 +140,7 @@ namespace Calculator
             textDisplay.Content = string.Empty;
 
             _lastElementIsDigit = false;
+            _lastOperationIsDecimalPoint = false;
         }
 
         private void ButtonResult_Click(object sender, RoutedEventArgs e)
@@ -144,16 +149,16 @@ namespace Calculator
 
             if (IsCorrectStringToCalculate(stringToCalculate))
             {
-                stringToCalculate = stringToCalculate.Replace('÷', '/').Replace(',', '.');
+                stringToCalculate = stringToCalculate.Replace('÷', '/');
 
-                object result = new DataTable().Compute(stringToCalculate, null); //var
+                var result = new DataTable().Compute(stringToCalculate, null).ToString();
 
-                if (result.ToString().Contains("."))
+                if (result.Contains("."))
                 {
                     _lastOperationIsDecimalPoint = true;
                 }
 
-                textDisplay.Content = result.ToString().Replace('.', ',');
+                textDisplay.Content = result;
             }
         }
 
@@ -161,7 +166,7 @@ namespace Calculator
         {
             var stringToCalculate = textDisplay.Content.ToString();
 
-            if (stringToCalculate.Length < 3)//магическое число(magic number) почему именно меньше 3(можно вынести константой в отдельную перменную)
+            if (stringToCalculate.Length < MaxStringLengthIfZeroOrMinusZero)
             {
                 if (StringToCalculateIsZero(stringToCalculate))
                 {
@@ -197,6 +202,17 @@ namespace Calculator
                 _lastElementIsDigit = false;
                 _lastOperationIsDecimalPoint = false;
             }
+            else if (!string.IsNullOrEmpty(textDisplay.Content.ToString()))
+            {
+                var stringToCalculate = textDisplay.Content.ToString();
+
+                var lastSymbol = stringToCalculate[stringToCalculate.Length - 1];
+
+                if (stringToCalculate.Length > 1 && _listOfOperations.Contains(lastSymbol))
+                {
+                    ReplaceLastOperation(stringToCalculate, operation);
+                }
+            }
         }
 
         public bool StringToCalculateIsZero(string stringToCalculate)
@@ -221,10 +237,10 @@ namespace Calculator
 
         public bool IsZeroAfterOperation(string stringToCalculate)
         {
-            if (stringToCalculate.Length > 2)//тоже магия, программист не должен думать, а почему тут именно 2, а дожен сразу понимать(например из названия константы)
+            if (stringToCalculate.Length > 2)
             {
-                var lastDigit = stringToCalculate[stringToCalculate.Length - 1]; //[^1]
-                var preLastDigit = stringToCalculate[stringToCalculate.Length - 2]; //[^2]
+                var lastDigit = stringToCalculate[stringToCalculate.Length - 1];
+                var preLastDigit = stringToCalculate[stringToCalculate.Length - 2];
 
                 if (_listOfOperations.Contains(preLastDigit) && lastDigit is '0')
                 {
@@ -237,9 +253,18 @@ namespace Calculator
 
         private void ReplaceLastZero(string stringToCalculate, string digit)
         {
-            stringToCalculate = stringToCalculate.Remove(stringToCalculate.Length - 1); //можно сделать одной строкой remove + insert, а длину строки в отдельную переменную вынеси
+            var stringToCalculateLength = stringToCalculate.Length;
 
-            textDisplay.Content = stringToCalculate.Insert(stringToCalculate.Length, digit);
+            textDisplay.Content = stringToCalculate.Remove(stringToCalculateLength - 1).
+                Insert(stringToCalculateLength - 1, digit);
+        }
+
+        private void ReplaceLastOperation(string stringToCalculate, string operation)
+        {
+            var stringToCalculateLength = stringToCalculate.Length;
+
+            textDisplay.Content = stringToCalculate.Remove(stringToCalculateLength - 1).
+                Insert(stringToCalculateLength - 1, operation);
         }
 
         public bool IsCorrectStringToCalculate(string stringToCalculate)
@@ -250,19 +275,19 @@ namespace Calculator
 
                 return false;
             }
-            else if (!char.IsDigit(stringToCalculate[stringToCalculate.Length - 1])) //[^1]
+            else if (!char.IsDigit(stringToCalculate[stringToCalculate.Length - 1]))
             {
                 MessageBox.Show("The calculation string was entered incorrectly (perhaps the last character is not a number)!");
 
                 return false;
             }
 
-            bool correctString = false; //перемести где используешь, стоит перед ифом хотя его скипаешь
-
             if (stringToCalculate[0] is '-')
             {
                 stringToCalculate = stringToCalculate.Remove(0, 1);
             }
+
+            bool correctString = false;
 
             foreach (var item in _listOfOperations)
             {
