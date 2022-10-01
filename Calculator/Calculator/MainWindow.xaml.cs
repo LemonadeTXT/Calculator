@@ -10,9 +10,9 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool _lastElementIsDigit; //private явно укажи
-        bool _lastOperationIsDecimalPoint; //private
-        readonly List<char> _listOfOperations; //private
+        private bool _lastElementIsDigit;
+        private bool _lastOperationIsDecimalPoint;
+        private readonly List<char> _listOfOperations;
 
         public MainWindow()
         {
