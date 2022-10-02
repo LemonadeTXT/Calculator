@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows;
@@ -151,14 +152,16 @@ namespace Calculator
             {
                 stringToCalculate = stringToCalculate.Replace('÷', '/');
 
-                var result = new DataTable().Compute(stringToCalculate, null).ToString();
+                var result = new DataTable().Compute(stringToCalculate, null);
 
-                if (result.Contains("."))
+                var resultToString = Math.Round(Convert.ToDouble(result), 4).ToString().Replace(',', '.');
+
+                if (resultToString.Contains("."))
                 {
                     _lastOperationIsDecimalPoint = true;
                 }
 
-                textDisplay.Content = result;
+                textDisplay.Content = resultToString;
             }
         }
 
