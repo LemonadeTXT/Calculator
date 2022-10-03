@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Calculator" Height="500" Width="500">
+        Title="Calculator" Height="500" Width="500" ResizeMode="CanMinimize">
     <Grid>
         <Button Name="buttonZero" Content="0" HorizontalAlignment="Left" Height="70" Margin="30,350,0,0" VerticalAlignment="Top" Width="70" Click="ButtonZero_Click" FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
         <Button Name="buttonOne" Content="1" HorizontalAlignment="Left" Height="70" Margin="30,110,0,0" VerticalAlignment="Top" Width="70" Click="ButtonOne_Click" FontSize="20" Foreground="Black" Background="White" BorderBrush="Black"/>
